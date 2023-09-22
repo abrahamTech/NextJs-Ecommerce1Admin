@@ -199,12 +199,61 @@ export default function Component() {
  **Notes:**
 - Add `google` in `<button onClick={() => signIn("google")}>Sign in</button>` so that it doesn't redirect you to a new page with a button to log in
 
-## Consuming the session
+### Consuming the session
 
 You can use the `useSession` hook from anywhere in your application (E.g. in a header component). Behind the scenes, the hook will connect to the `<SessionProvider />` to read the current user session. 
 
 
+## MongoDB Atlas
+[Next Auth Documentation for Adapter MongoDB](https://authjs.dev/reference/adapter/mongodb)
 
+- 1.- Install MongoDB
+```bash
+npm install @auth/mongodb-adapter mongodb
+```
+or with yarn
+```bash
+yarn add @auth/mongodb-adapter mongodb
+```
+
+- 2.- Add MongoDB client
+Create `lib` directory and create `mongodb.js` file inside it and add the next code: [Link code](https://authjs.dev/reference/adapter/mongodb#add-the-mongodb-client)
+
+```bash
+import { MongoClient } from "mongodb";
+
+if (!process.env.MONGODB_URI) {
+  throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
+}
+
+const uri = process.env.MONGODB_URI;
+const options = {};
+
+let client;
+let clientPromise: Promise<MongoClient>;
+...
+```
+
+**Note:** 
+Delete `Promise<MongoClient>` from clientPromise, because it is use it in Typescript and we are using Js.
+
+- 3.- Configure in AuthJs 
+Go to `[...nextauth].js` file inside it and add the next code: [Link code](https://authjs.dev/reference/adapter/mongodb#configure-authjs)
+
+```bash
+import NextAuth from "next-auth"
+import { MongoDBAdapter } from "@auth/mongodb-adapter"
+import clientPromise from "../../../lib/mongodb"
+
+// For more information on each option (and a full list of options) go to
+// https://authjs.dev/reference/providers/oauth
+export default NextAuth({
+  adapter: MongoDBAdapter(clientPromise),
+  ...
+})
+```
+
+- 4.- Create Database in MongoDB Atlas
 
 #### Video Proyect
 [Build a Fullstack E-commerce using Next.js (react.js, mongo, tailwind, styled components)](https://www.youtube.com/watch?v=dTFXufTgfOE&t=40811s)
