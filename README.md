@@ -162,47 +162,42 @@ Create the `.env` file to save Google ID an Secret
  - 6.- Wrap Session Provider
  NextAuth.js provides `useSession()` - a React Hooks to access the session data and status. To use it first you'll need to expose the session context - `<SessionProvider />` - at the top level of your application:
 
- Wrap application Session Provider in `layout.js file`
+ Wrap application Session Provider in `_app.js file`
 
  ```bash
- import { SessionProvider } from "next-auth/react"
+import { SessionProvider } from "next-auth/react"
 
-export default function App({
-  Component,
-  pageProps: { session, ...pageProps },
-}) {
+export default function App({Component, pageProps: {session, ...pageProps }}) {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <Component {...pageProps}/>
     </SessionProvider>
   )
 }
  ```
 
- - 7.- Create Auth Provider Component
- You need to create an `Auth Provider` component for use un the layout and also you can use the `metadata`, if you you don't use the meta data you can onl include `"use client"` in the file and its ready.
+ - 7.- Create Client Page
+You can use the following code as a guide:
+```bash
+import { useSession, signIn, signOut } from "next-auth/react"
 
- **Note Errors:**
+export default function Component() {
+  const { data: session } = useSession()
+  if(session) {
+    return <>
+      Signed in as {session.user.email} <br/>
+      <button onClick={() => signOut()}>Sign out</button>
+    </>
+  }
+  return <>
+    Not signed in <br/>
+    <button onClick={() => signIn()}>Sign in</button>
+  </>
+}
+```
 
- - *app-index.js:31 [next-auth][error][CLIENT_FETCH_ERROR]* 
- It's because I haven't created the URL in the `.env` file
- *Solution:*
- -Step 1.- Create `NEXTAUTH_URL = "http://localhost:3000"` in the `.env` file, but when you deploy your application, you should change here this URL.
- Doc: [Solution Link](https://next-auth.js.org/errors#client_fetch_error)
-
- -Step 2.- Change the type of export of the `route.js` file, because we are using App Router.
- ```bash
- export default NextAuth({...})
-
-by
-
- const handler = NextAuth({...})
-
- export { handler as GET, handler as POST};
- ```
-
- -When pass the `username and password` is going to be a `POST method`
- -When fetch the session, `username` information is going to be a `GET method`
+ **Notes:**
+- Add `google` in `<button onClick={() => signIn("google")}>Sign in</button>` so that it doesn't redirect you to a new page with a button to log in
 
 ## Consuming the session
 
