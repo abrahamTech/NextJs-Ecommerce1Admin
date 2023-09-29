@@ -9,11 +9,11 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className="text-blue-900 flex justify-between">
+      <div className="text-indigo-600 flex justify-between">
         <h2>
           Hello, <b>{session?.user?.name}</b>
         </h2>
-        <div className="flex bg-gray-700 gap-1 text-white rounded-lg overflow-hidden">
+        <div className="flex bg-indigo-600 gap-1 text-white rounded-lg overflow-hidden">
           <img src={session?.user?.image} className="w-6 h-6" alt="Profile picture"></img>
           <span className="px-2">
             {session?.user?.name}
