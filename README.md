@@ -255,5 +255,28 @@ export default NextAuth({
 
 - 4.- Create Database in MongoDB Atlas
 
+## Axios
+
+Install axios for sending form information
+
+[Axios Info](https://www.npmjs.com/package/axios)
+
+```bash
+npm i axios
+```
+
+## Mongoose
+
+Install mongoose for save info of the new products in a Database
+
+[Mongoose Info](https://mongoosejs.com/)
+
+```bash
+npm i mongoose
+```
+
+- Models
+Create Models fo the Products
+
 #### Video Proyect
 [Build a Fullstack E-commerce using Next.js (react.js, mongo, tailwind, styled components)](https://www.youtube.com/watch?v=dTFXufTgfOE&t=40811s)
