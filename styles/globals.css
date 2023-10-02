@@ -32,7 +32,7 @@ input:focus, textarea:focus {
 }
 
 .btn-primary:hover {
-    @apply dark:shadow-indigo-600/80 bg-gradient-to-t from-indigo-500 via-indigo-400 to-indigo-400;
+    @apply dark:shadow-indigo-600/80 bg-gradient-to-t from-indigo-400 via-indigo-400 to-indigo-500;
 }
 
 .btn-accept {
@@ -41,4 +41,9 @@ input:focus, textarea:focus {
 
 .btn-accept:hover {
     @apply hover:dark:shadow-teal-600/80  hover:bg-gradient-to-t hover:from-teal-500 hover:via-teal-400 hover:to-teal-400;
+}
+
+/* Input Login */
+.inputLogin {
+    @apply w-[400px] py-2 px-6 bg-zinc-100/50;
 }

@@ -1,11 +1,18 @@
 import Layout from "@/components/Layout";
+import LoginForm from "@/components/LoginForm";
 import { useSession } from "next-auth/react";
 
 export default function Home() {
   //Auth "data:session" rename data to session
   const {data: session} = useSession();
 
-  // if(!session) return;
+  if(!session) {
+    return(
+      <LoginForm>
+        
+      </LoginForm>
+    );
+  }
 
   return (
     <Layout>
