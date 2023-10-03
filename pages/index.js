@@ -8,9 +8,7 @@ export default function Home() {
 
   if(!session) {
     return(
-      <LoginForm>
-        
-      </LoginForm>
+      <LoginForm />
     );
   }
 
