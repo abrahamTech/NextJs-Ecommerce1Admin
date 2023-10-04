@@ -1,4 +1,4 @@
-"use-client";
+"use client";
 
 import Link from "next/link";
 import { useState } from "react";
@@ -10,12 +10,35 @@ const RegisterForm = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault(); //If click on the submit button, the page doesn't reload
 
         if(!name || !email || !password) {
             setError("All fields are necessary");
             return;
+        }
+
+        try {
+            const res = await fetch("api/register/route", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    name,
+                    email,
+                    password,
+                }),
+            });
+
+            //Reset Form fields
+            if(res.ok) {
+                const form = e.target;
+                form.reset();
+            } else {
+                console.log("User registration failed.")
+                console.log("User registration failed.", res.statusText)
+            }
+        } catch (error) {
+            console.log("Error during registration: ", error);
         }
     }
 
